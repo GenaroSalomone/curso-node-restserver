@@ -3,7 +3,7 @@ const { response } = require('express');
 const usuariosGet = (req, res = response ) => {
 
     //Query params
-    const {q, nombre = "No name", apikey, page, limit} = req.query;
+    const {q, nombre = "No name", apikey, page = 1, limit} = req.query;
 
     res.json({
         msg: 'get API - Controlador',
@@ -55,7 +55,6 @@ module.exports = {
     usuariosPut,
     usuariosPatch,
     usuariosDelete,
-
 
 }
 
