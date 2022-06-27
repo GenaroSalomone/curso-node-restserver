@@ -19,7 +19,7 @@ const usuariosPost = (req, res = response) => {
 
     const { nombre, edad } = req.body;
 
-    res.status(201).json({
+    res.json({
         msg: 'post API - Controlador',
         nombre,
         edad
@@ -30,7 +30,7 @@ const usuariosPut = (req, res = response) => {
 
     const { id } = req.params;
 
-    res.status(500).json({
+    res.json({
         msg: 'put API - Controlador',
         id
     });
