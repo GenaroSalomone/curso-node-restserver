@@ -1,6 +1,7 @@
 
 const express = require('express');
 const cors = require('cors');
+const { dbConnection } = require('../db/config');
 
 //Instancia de Server para legibilizar mi app.js
 class Server {
@@ -10,11 +11,18 @@ class Server {
         this.port = process.env.PORT;
         this.usuariosPath = '/api/usuarios';
 
+        //Conneccion a Mongo DB
+        this.conectarDB();
+
         //Middlewares (funciones para añadir funcionalidades al webserver)
         this.middlewares();
 
         //Rutas de mi app
         this.routes();
+    }
+
+    async conectarDB () {
+        await dbConnection();
     }
 
     middlewares(){
@@ -27,7 +35,6 @@ class Server {
 
         //Directorio publico
         this.app.use( express.static( 'public' ) );
-
 
     }
 
