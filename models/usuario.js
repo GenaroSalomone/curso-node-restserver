@@ -37,7 +37,8 @@ const usuarioSchema = Schema( {
 //sobreescribo metodo toJSON
 usuarioSchema.methods.toJSON = function () {
     // ... -> almacena el resto de propiedades en usuario
-    const { __v, password, ...usuario } = this.toObject();
+    const { __v, password, _id, ...usuario } = this.toObject();
+    usuario.uid = _id;
     return usuario;
 }
 
