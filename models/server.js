@@ -36,6 +36,12 @@ class Server {
         //Directorio publico
         this.app.use( express.static( 'public' ) );
 
+        //COOP - Pop Up
+        this.app.use((req, res, next) => {
+            res.header('Cross-Origin-Opener-Policy', 'same-origin; same-origin-allow-popups');
+            next();
+          });
+
     }
 
     routes() {
