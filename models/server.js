@@ -28,14 +28,7 @@ class Server {
 
     middlewares(){
         //CORS
-
-        const corsOptions = {
-            origin: ['https://accounts.google.com', 'https://curso-node-restserver-srmn-dev.fl0.io/'],
-            methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-            credentials: true,
-        };
-
-        this.app.use( cors( corsOptions ) );
+        this.app.use( cors() );
 
         //Lectura y parseo del body
         this.app.use( express.json() );
