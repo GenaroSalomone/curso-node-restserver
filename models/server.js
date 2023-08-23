@@ -28,11 +28,17 @@ class Server {
 
     middlewares(){
         //CORS
-        this.app.use( cors() );
+
+        const corsOptions = {
+            origin: ['https://accounts.google.com', 'https://curso-node-restserver-srmn-dev.fl0.io/'],
+            methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+            credentials: true,
+        };
+
+        this.app.use( cors( corsOptions ) );
 
         //Lectura y parseo del body
         this.app.use( express.json() );
-
 
         //Directorio publico
         this.app.use( express.static( 'public' ) );
@@ -42,7 +48,7 @@ class Server {
     routes() {
 
         this.app.use( this.authPath, require('../routes/auth') );
-        this.app.use( this.usuariosPath, require('../routes/usuarios') ) 
+        this.app.use( this.usuariosPath, require('../routes/usuarios') )
 
     }
 
