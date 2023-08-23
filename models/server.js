@@ -38,8 +38,7 @@ class Server {
 
         //COOP - Pop Up
         this.app.use((req, res, next) => {
-            res.header("Cross-Origin-Embedder-Policy", "require-corp");
-            res.header("Cross-Origin-Opener-Policy", "same-origin");
+            res.header('Cross-Origin-Opener-Policy', 'same-origin; same-origin-allow-popups');
             next();
           });
 
