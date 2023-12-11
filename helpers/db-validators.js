@@ -1,6 +1,6 @@
 
 const Role = require('../models/role');
-const Usuario = require('../models/usuario');
+const {Usuario, Categoria, Producto} = require('../models');
 const mongoose = require('mongoose');
 
 const esRoleValido = async ( rol = '' ) => {
@@ -31,11 +31,47 @@ const existeUsuarioPorId = async ( id ) => {
     }
 };
 
+const existeCategoriaPorId = async ( id ) => {
+    const categoria = await Categoria.findById(id);
+  
+    if ( !categoria ) {
+        throw new Error(`La categoria con el ID '${ id }' no existe`);
+    }
+}
+
+const existeProductoPorId = async ( id ) => {
+    const producto = await Producto.findById(id);
+  
+    if ( !producto ) {
+        throw new Error(`El producto con el ID '${ id }' no existe`);
+    }
+}
+
+const existeCategoriaPorNombre = async (nombre) => {
+    nombre = nombre.toUpperCase();
+    const categoriaDB = await Categoria.findOne({ nombre });
+    if (categoriaDB) {
+      throw new Error(`La categoria ${nombre}, ya existe`);
+    }
+  }
+
+const existeProductoPorNombre = async (nombre) => {
+    nombre = nombre.toUpperCase();
+    const productoExistente = await Producto.findOne({ nombre });
+
+    if (productoExistente) {
+        throw new Error('El nombre de el producto ya está en uso');
+    }
+};
 
 module.exports = {
     esRoleValido,
     emailExiste,
-    existeUsuarioPorId
+    existeUsuarioPorId,
+    existeCategoriaPorId,
+    existeCategoriaPorNombre,
+    existeProductoPorNombre,
+    existeProductoPorId
 }
 
 
