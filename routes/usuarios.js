@@ -2,13 +2,17 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 
-const { validarCampos } = require('../middlewares/validar-campos');
-const { validarJWT } = require('../middlewares/validar-jwt');
+//const { validarCampos } = require('../middlewares/validar-campos');
+//const { validarJWT } = require('../middlewares/validar-jwt');
+//const { esAdminRol, tieneRol } = require('../middlewares/validar-roles');
+const { validarCampos,
+        validarJWT,
+        esAdminRol,
+        tieneRol } = require('../middlewares');
 
 const { esRoleValido,
         emailExiste,
         existeUsuarioPorId } = require('../helpers/db-validators');
-
 
 const { usuariosGet,
         usuariosPost,
@@ -16,7 +20,7 @@ const { usuariosGet,
         usuariosPatch,
         usuariosDelete,
         } = require('../controllers/usuarios');
-        
+
 
 
 const router = Router();
@@ -40,15 +44,17 @@ router.put('/:id',[
     check('id').custom( existeUsuarioPorId ),
     check('rol').custom( esRoleValido ),
     validarCampos
-] ,usuariosPut);
+] , usuariosPut );
 
 router.patch('/', usuariosPatch);
 
 router.delete('/:id',[
     validarJWT,
+    esAdminRol,
+    tieneRol('VENTAS_ROLE','ADMIN_ROLE'),
     check('id').custom( existeUsuarioPorId ),
     validarCampos
-] ,usuariosDelete);
+] , usuariosDelete);
 
 
 
