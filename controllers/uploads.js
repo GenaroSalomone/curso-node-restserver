@@ -76,13 +76,8 @@ const mostrarImagen = async (req, res = response) => {
     default:
       return res.status(500).json({ msg: "Se me olvidó validar esto" });
   }
-  //Limpiar imagenes previas
   if (modelo.img) {
-    //Borrar imagen del servidor
-    const pathImagen = path.join(__dirname, "../uploads", coleccion, modelo.img);
-    if (fs.existsSync(pathImagen)) {
-      return res.sendFile(pathImagen)
-    }
+    return res.redirect(modelo.img);
   }
   const pathNoImage = path.join(__dirname, "../public/assets/no-image.jpg")
   res.sendFile(pathNoImage);
